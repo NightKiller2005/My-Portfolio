@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Chandru R — Aspiring Software Engineer · Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio of Chandru R, an aspiring software engineer from Coimbatore building full-stack web applications with React, Spring Boot and RESTful APIs."
+    />
+    <meta property="og:title" content="Chandru R — Aspiring Software Engineer" />
+    <meta
+      property="og:description"
+      content="Full-stack projects, experience and toolkit of Chandru R — constructed live by a crew of AI build agents."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#09090b" />
+
+    <!--
+      Build-mode bootstrap. Runs before first paint so unbuilt content never flashes.
+      Desktop: URL params > saved desktop preference > on.
+      Mobile: off by default; only explicit URL requests opt in.
+    -->
+    <script>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add("js");
+        var on = true;
+        try {
+          var q = new URLSearchParams(location.search);
+          var a = q.get("agents");
+          var stored = null;
+          try { stored = localStorage.getItem("cr-agents"); } catch (e) {}
+          var mobile = !!(window.matchMedia && matchMedia("(max-width: 767px)").matches);
+          if (mobile) on = q.get("tour") === "1" || a === "on";
+          else if (a === "on") on = true;
+          else if (a === "off") on = false;
+          else if (stored === "off") on = false;
+          else on = true;
+        } catch (e) { on = false; }
+        window.__AGENTS_INITIAL__ = on;
+        if (on) d.classList.add("build-mode", "is-booting");
+        // Safety net: if the scripts fail, show the page anyway.
+        setTimeout(function () {
+          if (!window.__PORTFOLIO_READY__) {
+            d.classList.remove("build-mode", "is-booting");
+            d.classList.add("build-failsafe");
+          }
+        }, 5000);
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat+Brush&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap"
+    />
+    <link rel="preload" as="image" href="assets/headshot.png" />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/hero.css" />
+    <link rel="stylesheet" href="css/sections.css" />
+    <link rel="stylesheet" href="css/agents.css" />
+    <link rel="stylesheet" href="css/dock.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <script defer src="js/portfolio-data.js"></script>
+    <script defer src="js/animations.js"></script>
+    <script defer src="js/agents.js"></script>
+    <script defer src="js/build-engine.js"></script>
+    <script defer src="js/tour.js"></script>
+    <script defer src="js/interactions.js"></script>
+    <script defer src="js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#work">Skip to content</a>
+
+    <!-- Boot screen -->
+    <div class="boot" id="boot" aria-hidden="true">
+      <div class="boot__inner">
+        <div class="boot__loader"><span></span><span></span><span></span><span></span></div>
+        <p class="boot__line"><span class="boot__k">CR/BUILD</span><span id="bootMsg">Initializing build environment</span></p>
+        <div class="boot__bar"><i></i></div>
+        <p class="boot__meta" id="bootMeta">00 agents online</p>
+      </div>
+    </div>
+
+    <main id="app">
+      <section class="hero" id="top" data-section="hero" aria-label="Introduction"></section>
+      <section class="section work" id="work" data-section="work" aria-labelledby="work-title"></section>
+      <section class="section stack" id="stack" data-section="stack" aria-labelledby="stack-title"></section>
+      <section class="section experience" id="experience" data-section="experience" aria-labelledby="experience-title"></section>
+      <section class="section record" id="record" data-section="record" aria-labelledby="record-title"></section>
+      <section class="section about" id="about" data-section="about" aria-labelledby="about-title"></section>
+      <section class="section contact" id="contact" data-section="contact" aria-labelledby="contact-title"></section>
+    </main>
+    <footer class="footer" id="footer" data-section="footer"></footer>
+
+    <noscript>
+      <div class="noscript">
+        <h1>Chandru R</h1>
+        <p>Aspiring Software Engineer</p>
+        <p>
+          <a href="mailto:chandru2382k5@gmail.com">chandru2382k5@gmail.com</a> ·
+          <a href="https://www.linkedin.com/in/chandru2382k5" rel="noopener">LinkedIn</a>
+        </p>
+        <p>Enable JavaScript to view the full portfolio.</p>
+      </div>
+    </noscript>
+
+    <!-- Floating control dock -->
+    <div class="dock" id="dock" role="toolbar" aria-label="Build controls">
+      <div class="dock__status" aria-live="polite">
+        <span class="dock__led" aria-hidden="true"></span>
+        <span class="dock__status-text" id="dockStatus">Booting</span>
+      </div>
+      <button class="dock__btn" id="btnPause" type="button" aria-pressed="false" disabled>
+        <span class="dock__icon" data-icon="pause"></span>
+        <span class="dock__label">Pause</span>
+        <kbd>P</kbd>
+      </button>
+      <button class="dock__btn" id="btnAgents" type="button" aria-pressed="true" disabled>
+        <span class="dock__icon" data-icon="bot"></span>
+        <span class="dock__label">Agents</span>
+        <kbd>A</kbd>
+      </button>
+      <button class="dock__btn" id="btnTour" type="button" aria-pressed="false" disabled>
+        <span class="dock__icon" data-icon="route"></span>
+        <span class="dock__label">Tour</span>
+        <kbd>T</kbd>
+      </button>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog class="certificate-dialog" id="certificateDialog" aria-labelledby="certificateDialogTitle">
+      <div class="certificate-dialog__head">
+        <h2 class="certificate-dialog__title" id="certificateDialogTitle"></h2>
+        <button class="certificate-dialog__close" type="button" aria-label="Close certificate" data-certificate-close>&times;</button>
+      </div>
+      <div class="certificate-dialog__images"></div>
+      <p class="certificate-dialog__empty" hidden>Images have not been added yet.</p>
+    </dialog>
+  </body>
+</html>

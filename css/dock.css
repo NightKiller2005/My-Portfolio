@@ -1,0 +1,135 @@
+/* ==========================================================================
+   dock.css — floating control dock
+   ========================================================================== */
+
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 80;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px;
+  background: rgba(17, 17, 19, 0.96);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 18px 40px -18px rgba(24, 55, 33, 0.22);
+  transition:
+    opacity 0.4s var(--ease),
+    translate 0.4s var(--ease);
+}
+html.is-booting .dock {
+  opacity: 0;
+  translate: -50% 12px;
+}
+
+.dock__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px 0 10px;
+  margin-right: 2px;
+  border-right: 1px solid var(--border);
+  font: 500 10.5px/1 var(--f-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  white-space: nowrap;
+  min-width: 9.5rem;
+}
+.dock__led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--fg-3);
+  flex: none;
+}
+.dock[data-state="building"] .dock__led {
+  background: var(--wire);
+  box-shadow: 0 0 8px var(--wire);
+  animation: led 0.9s ease-in-out infinite;
+}
+.dock[data-state="done"] .dock__led {
+  background: #22a653;
+}
+.dock[data-state="paused"] .dock__led {
+  background: var(--red);
+}
+.dock[data-state="touring"] .dock__led {
+  background: var(--red);
+  box-shadow: 0 0 8px var(--red);
+  animation: led 0.9s ease-in-out infinite;
+}
+
+.dock__btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--fg-2);
+  font: 500 10.5px/1 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    scale 0.15s;
+}
+.dock__btn:hover {
+  background: var(--bg-3);
+  color: var(--fg);
+}
+.dock__btn:active {
+  scale: 0.95;
+  background: var(--bg-3);
+}
+.dock__btn:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 1px;
+}
+.dock__btn[aria-pressed="true"] {
+  color: var(--red);
+  background: rgba(25, 223, 72, 0.08);
+  border-color: rgba(25, 223, 72, 0.28);
+}
+.dock__btn[aria-pressed="true"]:hover {
+  background: rgba(25, 223, 72, 0.14);
+}
+.dock__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  scale: 1;
+  background: transparent;
+}
+
+.dock__icon {
+  display: inline-grid;
+  place-items: center;
+  font-size: 14px;
+}
+.dock__btn kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  border: 1px solid var(--border-2);
+  border-radius: 3px;
+  font: 500 9px/1 var(--f-mono);
+  color: var(--fg-3);
+}
+.dock__btn[aria-pressed="true"] kbd {
+  border-color: rgba(25, 223, 72, 0.35);
+  color: var(--red);
+}

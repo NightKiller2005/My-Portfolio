@@ -1,0 +1,158 @@
+/* ==========================================================================
+   animations.css — build-mode visibility, keyframes, reveal fallbacks
+   ========================================================================== */
+
+/* Unbuilt elements keep their layout space but are invisible. */
+html.build-mode [data-build]:not(.is-built):not(.is-building) {
+  visibility: hidden;
+}
+
+/* Typed characters */
+.ch {
+  opacity: 0;
+}
+.ch.on {
+  opacity: 1;
+}
+
+/* Global pause: freeze decorative CSS animation */
+html.is-paused *,
+html.is-paused *::before,
+html.is-paused *::after {
+  animation-play-state: paused !important;
+}
+
+/* Entrance used when agents are off on first load */
+html.static-enter .hero [data-build] {
+  animation: rise 0.9s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* Scroll reveal when agents are off */
+html.js:not(.build-mode) [data-reveal]:not(.is-in) {
+  opacity: 0;
+  transform: translateY(18px);
+}
+html.js [data-reveal] {
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+
+/* Uses transform (not translate) so it never overrides centring done with `translate`. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheen {
+  0% {
+    background-position: 160% 0;
+  }
+  55%,
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.85;
+    scale: 1;
+  }
+  50% {
+    opacity: 1;
+    scale: 1.06;
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  93% {
+    transform: scaleY(0.1);
+  }
+  96% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes led {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes nudge {
+  0%,
+  70%,
+  100% {
+    translate: 0 0;
+  }
+  80% {
+    translate: 4px -4px;
+  }
+}
+
+@keyframes boot-bar {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes boot-cell {
+  0% {
+    background: var(--red);
+  }
+  25% {
+    background: var(--border-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not(.force-motion) *,
+  html:not(.force-motion) *::before,
+  html:not(.force-motion) *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html:not(.force-motion) {
+    scroll-behavior: auto;
+  }
+}

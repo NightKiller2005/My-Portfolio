@@ -1,0 +1,245 @@
+/* ==========================================================================
+   agents.css — robot cursors and blue construction wireframes
+   ========================================================================== */
+
+.agent-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 90;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ---------- Agent ---------- */
+
+.agent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.35s var(--ease);
+}
+.agent.is-on {
+  opacity: 1;
+}
+.agent__inner {
+  transform-origin: 0 0;
+  scale: 0.55;
+  transition: scale 0.45s var(--ease);
+}
+.agent.is-on .agent__inner {
+  scale: 1;
+}
+
+.agent__cursor {
+  width: 18px;
+  height: 21px;
+  overflow: visible;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.65));
+}
+.agent__cursor path {
+  fill: var(--wire);
+  stroke: var(--fg);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+.agent__bot {
+  position: absolute;
+  left: 15px;
+  top: 19px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.agent.is-flip .agent__bot {
+  left: auto;
+  right: 8px;
+  flex-direction: row-reverse;
+}
+
+.agent__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 22px;
+  height: 15px;
+  border-radius: 4px;
+  background: var(--bg);
+  border: 1px solid var(--agent);
+  box-shadow:
+    0 0 0 2px rgba(20, 37, 26, 0.16),
+    0 0 12px -3px var(--agent);
+}
+.agent__head::before,
+.agent__head::after {
+  /* side "ears" */
+  content: "";
+  position: absolute;
+  top: 4px;
+  width: 2px;
+  height: 5px;
+  background: var(--agent);
+  opacity: 0.7;
+}
+.agent__head::before {
+  left: -3px;
+}
+.agent__head::after {
+  right: -3px;
+}
+
+.agent__eye {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: var(--agent);
+  box-shadow: 0 0 6px var(--agent);
+  animation: blink 4.2s infinite;
+  animation-delay: var(--blink-delay, 0s);
+}
+
+.agent__antenna {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 1px;
+  height: 6px;
+  margin-left: -0.5px;
+  background: var(--agent);
+}
+.agent__antenna::after {
+  content: "";
+  position: absolute;
+  left: -1.5px;
+  top: -3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--agent);
+  box-shadow: 0 0 8px var(--agent);
+  animation: pulse 1.6s ease-in-out infinite;
+  animation-delay: var(--blink-delay, 0s);
+}
+
+.agent__tag {
+  padding: 3px 6px 3px;
+  border-radius: 3px;
+  background: var(--agent);
+  color: var(--fg);
+  font: 600 9.5px/1.1 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.agent.is-working .agent__tag::after {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin-left: 5px;
+  vertical-align: 1px;
+  border-radius: 50%;
+  background: var(--fg);
+  animation: led 0.6s steps(2) infinite;
+}
+
+/* ---------- Wireframe ---------- */
+
+.wire {
+  --d: 0;
+  --o: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: var(--o);
+  will-change: transform;
+}
+.wire__fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(34, 166, 83, 0.06);
+  opacity: clamp(0, calc(var(--d) * 2 - 0.6), 1);
+}
+.wire__e {
+  position: absolute;
+  background: var(--wire);
+}
+.wire__e--t {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  transform-origin: left center;
+  transform: scaleX(clamp(0, calc(var(--d) * 4), 1));
+}
+.wire__e--r {
+  right: 0;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform-origin: center top;
+  transform: scaleY(clamp(0, calc(var(--d) * 4 - 1), 1));
+}
+.wire__e--b {
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  transform-origin: right center;
+  transform: scaleX(clamp(0, calc(var(--d) * 4 - 2), 1));
+}
+.wire__e--l {
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: 100%;
+  transform-origin: center bottom;
+  transform: scaleY(clamp(0, calc(var(--d) * 4 - 3), 1));
+}
+
+.wire__h {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  margin: -3px 0 0 -3px;
+  background: var(--bg);
+  border: 1px solid var(--wire);
+  transform: scale(clamp(0, calc(var(--d) * 3 - 1.4), 1)) rotate(calc((1 - clamp(0, calc(var(--d) * 3 - 1.4), 1)) * 90deg));
+}
+.wire__h--tl { left: 0; top: 0; }
+.wire__h--tr { left: 100%; top: 0; }
+.wire__h--br { left: 100%; top: 100%; }
+.wire__h--bl { left: 0; top: 100%; }
+
+.wire__label {
+  position: absolute;
+  left: -1px;
+  bottom: 100%;
+  margin-bottom: 5px;
+  padding: 3px 6px;
+  background: var(--wire);
+  color: var(--fg);
+  font: 600 9.5px/1.1 var(--f-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: clamp(0, calc(var(--d) * 3 - 1), 1);
+}
+.wire__size {
+  position: absolute;
+  right: -1px;
+  top: 100%;
+  margin-top: 5px;
+  font: 500 9px/1 var(--f-mono);
+  color: var(--wire);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  opacity: clamp(0, calc(var(--d) * 3 - 1.5), 1);
+}
