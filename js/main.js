@@ -300,7 +300,7 @@
       '<nav class="footer__links" aria-label="Social" data-build="pop">' +
       D.socials.map((s) => '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + "</a>").join("") +
       '<a href="mailto:' + esc(D.email) + '">Email</a><a href="#top">Back to top</a></nav>' +
-      '<p class="footer__meta" data-build="type">© ' + year + " " + esc(D.name) + ". Assembled by build agents in HTML, CSS & vanilla JS.</p>" +
+      '<p class="footer__meta" data-build="type">© ' + year + " " + esc(D.name) + ". All Rights Reserved.</p>" +
       "</div>"
     );
   }
