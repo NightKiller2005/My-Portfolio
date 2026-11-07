@@ -159,7 +159,7 @@ window.PORTFOLIO = {
   },
 
   record: {
-    intro: "Recognition, certifications and education — straight from the resume.",
+    intro: "Recognition, certifications and education.",
     items: [
       {
         date: null,
